@@ -1,0 +1,13 @@
+# This file is automatically maintained by CDep.
+#
+#     MANUAL EDITS WILL BE LOST ON THE NEXT CDEP RUN
+#
+# This file contains a list of CDep coordinates along with the SHA256 hash of their
+# manifest file. This is to ensure that a manifest hasn't changed since the last
+# time CDep ran.
+# The recommended best practice is to check this file into source control so that
+# anyone else who builds this project is guaranteed to get the same dependencies.
+
+- coordinate: com.github.ggfan:shaderc:0.0.1
+  sha256: 260b786af15a774ea12d3b27a1b4428c625b3956bf3390bb68bc99930c4e0f89
+

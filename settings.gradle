@@ -1,0 +1,6 @@
+rootProject.name='VulkanCamera'
+include ':app'
+//include ':vulkan'
+//include ':video'
+//include ':base'
+

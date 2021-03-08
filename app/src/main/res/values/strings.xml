@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">VulkanCamera</string>
+    <string name="select_resolution">SELECT RESOLUTION</string>
+    <string name="select_filter">选择特效</string>
+    <string name="request_permission">This sample needs camera permission.</string>
+    <string name="camera_error">This device doesn\'t support Camera2 API.</string>
+</resources>
