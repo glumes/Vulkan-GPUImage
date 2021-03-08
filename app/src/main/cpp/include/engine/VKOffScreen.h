@@ -2,24 +2,22 @@
 // Created by glumes on 2021/2/28.
 //
 
-#ifndef VULKANCAMERA_VKOFFSCREENINFO_H
-#define VULKANCAMERA_VKOFFSCREENINFO_H
+#ifndef VULKANCAMERA_VKOFFSCREEN_H
+#define VULKANCAMERA_VKOFFSCREEN_H
 
 #include <vulkan_wrapper.h>
 
 #include <vector>
 
-class VKDeviceInfo;
+class VKDeviceManager;
 
-class VKSwapChainInfo;
+class VKSwapChainManager;
 
-class VKBufferInfo;
+class VKBufferManager;
 
-class VKPipelineInfo;
+class VKTextureManager;
 
-class VKTextureInfo;
-
-class VKOffScreenInfo {
+class VKOffScreen {
 
 public:
     struct FrameBufferAttachment {
@@ -49,12 +47,12 @@ public:
 
     VulkanGfxPipelineInfo offscreenPipeline;
 
-    void createOffscreen(VKDeviceInfo*deviceInfo,VKSwapChainInfo *swapChainInfo);
+    void createOffscreen(VKDeviceManager*deviceInfo, VKSwapChainManager *swapChainInfo);
 
-    int updateOffScreenDescriptorSet(VKDeviceInfo *deviceInfo,VKBufferInfo *bufferInfo,VKTextureInfo *textureInfo);
+    int updateOffScreenDescriptorSet(VKDeviceManager *deviceInfo, VKBufferManager *bufferInfo, VKTextureManager *textureInfo);
 
 
-    VkResult allocateMemoryTypeFromProperties(VKDeviceInfo *deviceInfo, uint32_t typeBits,
+    VkResult allocateMemoryTypeFromProperties(VKDeviceManager *deviceInfo, uint32_t typeBits,
                                               VkFlags requirements_mask,
                                               uint32_t *typeIndex);
 
@@ -62,4 +60,4 @@ public:
 };
 
 
-#endif //VULKANCAMERA_VKOFFSCREENINFO_H
+#endif //VULKANCAMERA_VKOFFSCREEN_H

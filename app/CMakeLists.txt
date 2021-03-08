@@ -34,12 +34,12 @@ add_library( # Sets the name of the library.
 
         ${ENGINE_SRC}/VKEngineRenderer.cpp
 
-        ${ENGINE_SRC}/VKDeviceInfo.cpp
-        ${ENGINE_SRC}/VKSwapChainInfo.cpp
-        ${ENGINE_SRC}/VKRenderInfo.cpp
-        ${ENGINE_SRC}/VKBufferInfo.cpp
-        ${ENGINE_SRC}/VKTextureInfo.cpp
-        ${ENGINE_SRC}/VKOffScreenInfo.cpp
+        ${ENGINE_SRC}/VKDeviceManager.cpp
+        ${ENGINE_SRC}/VKSwapChainManager.cpp
+        ${ENGINE_SRC}/VKRender.cpp
+        ${ENGINE_SRC}/VKBufferManager.cpp
+        ${ENGINE_SRC}/VKTextureManager.cpp
+        ${ENGINE_SRC}/VKOffScreen.cpp
 
         ${FILTER_SRC}/VulkanFilter.cpp
         ${FILTER_SRC}/OffScreenFilter.cpp

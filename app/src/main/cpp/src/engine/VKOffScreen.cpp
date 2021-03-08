@@ -2,14 +2,14 @@
 // Created by glumes on 2021/2/28.
 //
 
-#include "VKOffScreenInfo.h"
-#include <VKDeviceInfo.h>
-#include <VKSwapChainInfo.h>
+#include "VKOffScreen.h"
+#include <VKDeviceManager.h>
+#include <VKSwapChainManager.h>
 #include <VKShaders.h>
-#include <VKTextureInfo.h>
-#include <engine/VKBufferInfo.h>
+#include <VKTextureManager.h>
+#include <engine/VKBufferManager.h>
 
-void VKOffScreenInfo::createOffscreen(VKDeviceInfo *deviceInfo, VKSwapChainInfo *swapchain) {
+void VKOffScreen::createOffscreen(VKDeviceManager *deviceInfo, VKSwapChainManager *swapchain) {
     offscreenPass.width = swapchain->displaySize.width;
     offscreenPass.height = swapchain->displaySize.height;
 
@@ -165,8 +165,8 @@ void VKOffScreenInfo::createOffscreen(VKDeviceInfo *deviceInfo, VKSwapChainInfo 
 }
 
 VkResult
-VKOffScreenInfo::allocateMemoryTypeFromProperties(VKDeviceInfo *deviceInfo, uint32_t typeBits,
-                                                  VkFlags requirements_mask, uint32_t *typeIndex) {
+VKOffScreen::allocateMemoryTypeFromProperties(VKDeviceManager *deviceInfo, uint32_t typeBits,
+                                              VkFlags requirements_mask, uint32_t *typeIndex) {
     // Search memtypes to find first index with those properties
     for (uint32_t i = 0; i < 32; i++) {
         if ((typeBits & 1) == 1) {
@@ -184,7 +184,7 @@ VKOffScreenInfo::allocateMemoryTypeFromProperties(VKDeviceInfo *deviceInfo, uint
 }
 
 int
-VKOffScreenInfo::updateOffScreenDescriptorSet(VKDeviceInfo *deviceInfo,VKBufferInfo *vkbufferInfo,VKTextureInfo *textureInfo) {
+VKOffScreen::updateOffScreenDescriptorSet(VKDeviceManager *deviceInfo, VKBufferManager *vkbufferInfo, VKTextureManager *textureInfo) {
     VkDescriptorBufferInfo bufferInfo {
             bufferInfo.buffer = vkbufferInfo->uboBuffer,
             bufferInfo.offset = 0,

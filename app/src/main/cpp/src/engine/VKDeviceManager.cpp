@@ -2,9 +2,9 @@
 // Created by glumes on 2021/2/23.
 //
 
-#include "VKDeviceInfo.h"
+#include "VKDeviceManager.h"
 
-int VKDeviceInfo::createDevice(ANativeWindow *platformWindow, VkApplicationInfo *appInfo) {
+int VKDeviceManager::createDevice(ANativeWindow *platformWindow, VkApplicationInfo *appInfo) {
     std::vector<const char*> instance_extensions;
     std::vector<const char*> device_extensions;
 
@@ -96,10 +96,10 @@ int VKDeviceInfo::createDevice(ANativeWindow *platformWindow, VkApplicationInfo 
     return 0;
 }
 
-VKDeviceInfo::VKDeviceInfo() {
+VKDeviceManager::VKDeviceManager() {
 
 }
 
-VKDeviceInfo::~VKDeviceInfo() {
+VKDeviceManager::~VKDeviceManager() {
 
 }

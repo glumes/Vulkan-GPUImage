@@ -2,14 +2,14 @@
 // Created by glumes on 2021/2/24.
 //
 
-#include <VKDeviceInfo.h>
-#include "VKBufferInfo.h"
+#include <VKDeviceManager.h>
+#include "VKBufferManager.h"
 #include <VKDefine.h>
 #include <CommonUtils.h>
 
-void VKBufferInfo::createBuffer(VKDeviceInfo * deviceInfo,VkDeviceSize size, VkBufferUsageFlags usage,
-                                VkMemoryPropertyFlags properties, VkBuffer &buffer,
-                                VkDeviceMemory &bufferMemory) {
+void VKBufferManager::createBuffer(VKDeviceManager * deviceInfo, VkDeviceSize size, VkBufferUsageFlags usage,
+                                   VkMemoryPropertyFlags properties, VkBuffer &buffer,
+                                   VkDeviceMemory &bufferMemory) {
     VkBufferCreateInfo bufferInfo {
             .sType = VK_STRUCTURE_TYPE_BUFFER_CREATE_INFO,
             .pNext = nullptr,
@@ -41,8 +41,8 @@ void VKBufferInfo::createBuffer(VKDeviceInfo * deviceInfo,VkDeviceSize size, VkB
     CALL_VK(vkBindBufferMemory(deviceInfo->device, buffer, bufferMemory, 0));
 }
 
-void VKBufferInfo::copyBuffer(VKDeviceInfo *deviceInfo, VkBuffer srcBuffer, VkBuffer dstBuffer,
-                              VkDeviceSize size) {
+void VKBufferManager::copyBuffer(VKDeviceManager *deviceInfo, VkBuffer srcBuffer, VkBuffer dstBuffer,
+                                 VkDeviceSize size) {
 
     VkCommandPoolCreateInfo cmdPoolCreateInfo {
             .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
@@ -107,7 +107,7 @@ void VKBufferInfo::copyBuffer(VKDeviceInfo *deviceInfo, VkBuffer srcBuffer, VkBu
 }
 
 
-int VKBufferInfo::createVertexBuffer(VKDeviceInfo *deviceInfo) {
+int VKBufferManager::createVertexBuffer(VKDeviceManager *deviceInfo) {
     const Vertex vertices[4] {
             { {  1.0f,  1.0f, 0.0f }, { 1.0f, 1.0f } },
             { { -1.0f,  1.0f, 0.0f }, { 0.0f, 1.0f } },
@@ -138,8 +138,8 @@ int VKBufferInfo::createVertexBuffer(VKDeviceInfo *deviceInfo) {
     return 0;
 }
 
-bool VKBufferInfo::mapMemoryTypeToIndex(VKDeviceInfo* deviceInfo,uint32_t typeBits, VkFlags requirements_mask,
-                                        uint32_t *typeIndex) {
+bool VKBufferManager::mapMemoryTypeToIndex(VKDeviceManager* deviceInfo, uint32_t typeBits, VkFlags requirements_mask,
+                                           uint32_t *typeIndex) {
     VkPhysicalDeviceMemoryProperties memoryProperties;
     vkGetPhysicalDeviceMemoryProperties(deviceInfo->physicalDevice, &memoryProperties);
     // Search memtypes to find first index with those properties
@@ -157,7 +157,7 @@ bool VKBufferInfo::mapMemoryTypeToIndex(VKDeviceInfo* deviceInfo,uint32_t typeBi
     return false;
 }
 
-int VKBufferInfo::createIndexBuffer(VKDeviceInfo *deviceInfo) {
+int VKBufferManager::createIndexBuffer(VKDeviceManager *deviceInfo) {
     const uint16_t indices[6] {
             0, 1, 2, 2, 3, 0
     };
@@ -188,7 +188,7 @@ int VKBufferInfo::createIndexBuffer(VKDeviceInfo *deviceInfo) {
     return 0;
 }
 
-int VKBufferInfo::createUniformBuffers(VKDeviceInfo *deviceInfo) {
+int VKBufferManager::createUniformBuffers(VKDeviceManager *deviceInfo) {
 
     VkBuffer stagingBuffer;
     VkDeviceMemory stagingBufferMemory;
@@ -215,8 +215,8 @@ int VKBufferInfo::createUniformBuffers(VKDeviceInfo *deviceInfo) {
     return 0;
 }
 
-int VKBufferInfo::updateUniformBuffers(size_t m_width, size_t m_height, int m_rotation,
-                                       size_t m_backingWidth, size_t m_backingHeight) {
+int VKBufferManager::updateUniformBuffers(size_t m_width, size_t m_height, int m_rotation,
+                                          size_t m_backingWidth, size_t m_backingHeight) {
 
     float targetAspectRatio = (float)m_width / (float)m_height;
 
@@ -231,7 +231,7 @@ int VKBufferInfo::updateUniformBuffers(size_t m_width, size_t m_height, int m_ro
     return 0;
 }
 
-int VKBufferInfo::createShowVertexBuffer(VKDeviceInfo *deviceInfo) {
+int VKBufferManager::createShowVertexBuffer(VKDeviceManager *deviceInfo) {
 
     const float vertexData[] = {
             -1.0f, -1.0f, 0.0f, 0.0f, 0.0f,
@@ -281,7 +281,7 @@ int VKBufferInfo::createShowVertexBuffer(VKDeviceInfo *deviceInfo) {
     return 0;
 }
 
-int VKBufferInfo::createRGBUniformBuffer(VKDeviceInfo *deviceInfo) {
+int VKBufferManager::createRGBUniformBuffer(VKDeviceManager *deviceInfo) {
 
     m_rgb.red = 1.0;
     m_rgb.green = 0.0;

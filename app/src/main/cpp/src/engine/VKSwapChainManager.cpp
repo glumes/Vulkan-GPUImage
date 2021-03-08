@@ -2,19 +2,19 @@
 // Created by glumes on 2021/2/23.
 //
 
-#include <VKDeviceInfo.h>
-#include <VKSwapChainInfo.h>
-#include <VKRenderInfo.h>
+#include <VKDeviceManager.h>
+#include <VKSwapChainManager.h>
+#include <VKRender.h>
 
-VKSwapChainInfo::VKSwapChainInfo() {
-
-}
-
-VKSwapChainInfo::~VKSwapChainInfo() {
+VKSwapChainManager::VKSwapChainManager() {
 
 }
 
-int VKSwapChainInfo::createSwapChain(VKDeviceInfo* info) {
+VKSwapChainManager::~VKSwapChainManager() {
+
+}
+
+int VKSwapChainManager::createSwapChain(VKDeviceManager* info) {
     VkSurfaceCapabilitiesKHR surfaceCapabilities;
     vkGetPhysicalDeviceSurfaceCapabilitiesKHR(info->physicalDevice, info->surface,
                                               &surfaceCapabilities);
@@ -67,7 +67,7 @@ int VKSwapChainInfo::createSwapChain(VKDeviceInfo* info) {
     return 0;
 }
 
-int VKSwapChainInfo::createFrameBuffer(VKDeviceInfo *deviceInfo, VKRenderInfo * renderInfo, VkImageView depthView) {
+int VKSwapChainManager::createFrameBuffer(VKDeviceManager *deviceInfo, VKRender * renderInfo, VkImageView depthView) {
 
     // query display attachment to swapchain
     uint32_t swapchainImagesCount = 0;

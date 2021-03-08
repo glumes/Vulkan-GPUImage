@@ -2,25 +2,25 @@
 // Created by glumes on 2021/2/23.
 //
 
-#include "VKRenderInfo.h"
-#include <VKDeviceInfo.h>
-#include <VKSwapChainInfo.h>
-#include <VKBufferInfo.h>
-#include <engine/VKOffScreenInfo.h>
+#include "VKRender.h"
+#include <VKDeviceManager.h>
+#include <VKSwapChainManager.h>
+#include <VKBufferManager.h>
+#include <engine/VKOffScreen.h>
 #include <VulkanFilter.h>
 #include <FilterDefine.h>
 #include <OffScreenFilter.h>
 #include <EffectFilter.h>
 
-VKRenderInfo::VKRenderInfo() {
+VKRender::VKRender() {
 
 }
 
-VKRenderInfo::~VKRenderInfo() {
+VKRender::~VKRender() {
 
 }
 
-int VKRenderInfo::createRenderPass(VKDeviceInfo *deviceInfo,VKSwapChainInfo* swapChainInfo) {
+int VKRender::createRenderPass(VKDeviceManager *deviceInfo, VKSwapChainManager* swapChainInfo) {
     // Create render pass
     VkAttachmentDescription attachmentDescriptions {
             .format = swapChainInfo->displayFormat,
@@ -63,11 +63,11 @@ int VKRenderInfo::createRenderPass(VKDeviceInfo *deviceInfo,VKSwapChainInfo* swa
     return 0;
 }
 
-int VKRenderInfo::createCommandPool(VKDeviceInfo *deviceInfo, VKSwapChainInfo *swapChainInfo,
-                                    VKBufferInfo *bufferInfo,
-                                    VKOffScreenInfo *vkOffScreenInfo, VulkanFilter *filter,
-                                    OffScreenFilter *offScreenFilter,
-                                    VulkanFilter *effectFilter) {
+int VKRender::createCommandPool(VKDeviceManager *deviceInfo, VKSwapChainManager *swapChainInfo,
+                                VKBufferManager *bufferInfo,
+                                VKOffScreen *vkOffScreenInfo, VulkanFilter *filter,
+                                OffScreenFilter *offScreenFilter,
+                                VulkanFilter *effectFilter) {
 
     VkCommandPoolCreateInfo cmdPoolCreateInfo{
             .sType = VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO,
@@ -199,9 +199,9 @@ int VKRenderInfo::createCommandPool(VKDeviceInfo *deviceInfo, VKSwapChainInfo *s
 }
 
 void
-VKRenderInfo::setImageLayout(VkCommandBuffer cmdBuffer, VkImage image, VkImageLayout oldImageLayout,
-                             VkImageLayout newImageLayout, VkPipelineStageFlags srcStages,
-                             VkPipelineStageFlags destStages) {
+VKRender::setImageLayout(VkCommandBuffer cmdBuffer, VkImage image, VkImageLayout oldImageLayout,
+                         VkImageLayout newImageLayout, VkPipelineStageFlags srcStages,
+                         VkPipelineStageFlags destStages) {
 
     VkImageMemoryBarrier imageMemoryBarrier = {
             .sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,
@@ -270,7 +270,7 @@ VKRenderInfo::setImageLayout(VkCommandBuffer cmdBuffer, VkImage image, VkImageLa
                          &imageMemoryBarrier);
 }
 
-int VKRenderInfo::deleteCommandPool(VKDeviceInfo *deviceInfo) {
+int VKRender::deleteCommandPool(VKDeviceManager *deviceInfo) {
     vkFreeCommandBuffers(deviceInfo->device, cmdPool, cmdBufferLen, cmdBuffer.get());
     vkDestroyCommandPool(deviceInfo->device, cmdPool, nullptr);
     vkDestroyFence(deviceInfo->device, fence, nullptr);

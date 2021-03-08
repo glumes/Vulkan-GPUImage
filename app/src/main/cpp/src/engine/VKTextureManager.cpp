@@ -2,10 +2,10 @@
 // Created by glumes on 2021/2/24.
 //
 
-#include "VKTextureInfo.h"
-#include <VKDeviceInfo.h>
-#include <VKSwapChainInfo.h>
-#include <VKRenderInfo.h>
+#include "VKTextureManager.h"
+#include <VKDeviceManager.h>
+#include <VKSwapChainManager.h>
+#include <VKRender.h>
 
 #include <VideoRenderer.h>
 #include <VideoRendererContext.h>
@@ -14,7 +14,7 @@
 
 #include "stb_image.h"
 
-void VKTextureInfo::createTexture(VKDeviceInfo* deviceInfo,uint8_t* m_pBuffer,size_t m_width,size_t m_height) {
+void VKTextureManager::createTexture(VKDeviceManager* deviceInfo, uint8_t* m_pBuffer, size_t m_width, size_t m_height) {
 
     for (int i = 0; i < kTextureCount; i++) {
         loadTexture(deviceInfo,m_pBuffer, texType[i], m_width, m_height, &textures[i], VK_IMAGE_USAGE_SAMPLED_BIT,
@@ -58,7 +58,7 @@ void VKTextureInfo::createTexture(VKDeviceInfo* deviceInfo,uint8_t* m_pBuffer,si
 }
 
 
-void VKTextureInfo::createImgTexture(VKDeviceInfo *deviceInfo,AAssetManager* manager) {
+void VKTextureManager::createImgTexture(VKDeviceManager *deviceInfo, AAssetManager* manager) {
     const char* textTexFiles = "sample_tex.png";
 
 
@@ -106,8 +106,8 @@ void VKTextureInfo::createImgTexture(VKDeviceInfo *deviceInfo,AAssetManager* man
 }
 
 VkResult
-VKTextureInfo::LoadTextureFromFile(VKDeviceInfo * deviceInfo,AAssetManager* manager,const char *filePath, VKTextureInfo::texture_object *tex_obj,
-                                   VkImageUsageFlags usage, VkFlags required_props) {
+VKTextureManager::LoadTextureFromFile(VKDeviceManager * deviceInfo, AAssetManager* manager, const char *filePath, VKTextureManager::texture_object *tex_obj,
+                                      VkImageUsageFlags usage, VkFlags required_props) {
     if (!(usage | required_props)) {
         __android_log_print(ANDROID_LOG_ERROR, "tutorial texture",
                             "No usage and required_pros");
@@ -355,9 +355,9 @@ VKTextureInfo::LoadTextureFromFile(VKDeviceInfo * deviceInfo,AAssetManager* mana
 
 
 
-VkResult VKTextureInfo::loadTexture(VKDeviceInfo* deviceInfo,uint8_t *buffer, VKTextureInfo::TextureType type, size_t width,
-                                    size_t height, VKTextureInfo::VulkanTexture *texture,
-                                    VkImageUsageFlags usage, VkFlags required_props) {
+VkResult VKTextureManager::loadTexture(VKDeviceManager* deviceInfo, uint8_t *buffer, VKTextureManager::TextureType type, size_t width,
+                                       size_t height, VKTextureManager::VulkanTexture *texture,
+                                       VkImageUsageFlags usage, VkFlags required_props) {
 
     if (!(usage | required_props)) {
         LOGE("No usage and required_pros");
@@ -557,9 +557,9 @@ VkResult VKTextureInfo::loadTexture(VKDeviceInfo* deviceInfo,uint8_t *buffer, VK
     return VK_SUCCESS;
 }
 
-size_t VKTextureInfo::getBufferOffset(VKTextureInfo::VulkanTexture *texture,
-                                      VKTextureInfo::TextureType type, size_t width,
-                                      size_t height) {
+size_t VKTextureManager::getBufferOffset(VKTextureManager::VulkanTexture *texture,
+                                         VKTextureManager::TextureType type, size_t width,
+                                         size_t height) {
     size_t offset = 0;
     if (type == tTexY) {
         texture->width = width;
@@ -577,10 +577,10 @@ size_t VKTextureInfo::getBufferOffset(VKTextureInfo::VulkanTexture *texture,
     return offset;
 }
 
-void VKTextureInfo::setImageLayout(VkCommandBuffer cmdBuffer, VkImage image,
-                                   VkImageLayout oldImageLayout, VkImageLayout newImageLayout,
-                                   VkPipelineStageFlags srcStages,
-                                   VkPipelineStageFlags destStages) {
+void VKTextureManager::setImageLayout(VkCommandBuffer cmdBuffer, VkImage image,
+                                      VkImageLayout oldImageLayout, VkImageLayout newImageLayout,
+                                      VkPipelineStageFlags srcStages,
+                                      VkPipelineStageFlags destStages) {
     VkImageMemoryBarrier imageMemoryBarrier = {
             .sType = VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER,
             .pNext = NULL,
@@ -650,7 +650,7 @@ void VKTextureInfo::setImageLayout(VkCommandBuffer cmdBuffer, VkImage image,
 
 
 
-void VKTextureInfo::copyTextureData(VKTextureInfo::VulkanTexture *texture, uint8_t *data) {
+void VKTextureManager::copyTextureData(VKTextureManager::VulkanTexture *texture, uint8_t *data) {
     uint8_t* mappedData = (uint8_t*)texture->mapped;
     for (int i = 0; i < texture->height; ++i) {
         memcpy(mappedData, data, texture->width);
@@ -661,8 +661,8 @@ void VKTextureInfo::copyTextureData(VKTextureInfo::VulkanTexture *texture, uint8
 
 
 VkResult
-VKTextureInfo::allocateMemoryTypeFromProperties(VKDeviceInfo * deviceInfo,uint32_t typeBits, VkFlags requirements_mask,
-                                                uint32_t *typeIndex) {
+VKTextureManager::allocateMemoryTypeFromProperties(VKDeviceManager * deviceInfo, uint32_t typeBits, VkFlags requirements_mask,
+                                                   uint32_t *typeIndex) {
 
     // Search memtypes to find first index with those properties
     for (uint32_t i = 0; i < 32; i++) {
@@ -681,7 +681,7 @@ VKTextureInfo::allocateMemoryTypeFromProperties(VKDeviceInfo * deviceInfo,uint32
 }
 
 
-void VKTextureInfo::deleteTextures(VKDeviceInfo *deviceInfo) {
+void VKTextureManager::deleteTextures(VKDeviceManager *deviceInfo) {
     for (int i = 0; i < kTextureCount; i++) {
         vkDestroyImageView(deviceInfo->device, textures[i].view, nullptr);
         vkDestroyImage(deviceInfo->device, textures[i].image, nullptr);
@@ -691,7 +691,7 @@ void VKTextureInfo::deleteTextures(VKDeviceInfo *deviceInfo) {
     }
 }
 
-void VKTextureInfo::updateTextures(VKDeviceInfo *deviceInfo, uint8_t *buffer, size_t width, size_t height) {
+void VKTextureManager::updateTextures(VKDeviceManager *deviceInfo, uint8_t *buffer, size_t width, size_t height) {
     for (int i = 0; i < kTextureCount; ++i) {
         size_t offset = getBufferOffset(&textures[i],texType[i],width,height);
         copyTextureData(&textures[i],buffer + offset);

@@ -12,12 +12,12 @@
 #include <android/asset_manager_jni.h>
 #include <FilterUtil.h>
 
-class VKDeviceInfo;
-class VKSwapChainInfo;
-class VKRenderInfo;
-class VKBufferInfo;
-class VKTextureInfo;
-class VKOffScreenInfo;
+class VKDeviceManager;
+class VKSwapChainManager;
+class VKRender;
+class VKBufferManager;
+class VKTextureManager;
+class VKOffScreen;
 class VulkanFilter;
 class OffScreenFilter;
 class EffectFilter;
@@ -57,12 +57,12 @@ private:
     void deleteCommandPool();
 
 
-    VKDeviceInfo* vkDeviceInfo;
-    VKSwapChainInfo* vkSwapChainInfo;
-    VKRenderInfo* vkRenderInfo;
-    VKBufferInfo* vkBufferInfo;
-    VKTextureInfo* vkTextureInfo;
-    VKOffScreenInfo* vkOffScreenInfo;
+    VKDeviceManager* vkDeviceInfo;
+    VKSwapChainManager* vkSwapChainInfo;
+    VKRender* vkRenderInfo;
+    VKBufferManager* vkBufferInfo;
+    VKTextureManager* vkTextureInfo;
+    VKOffScreen* vkOffScreenInfo;
 
     uint8_t *m_pBuffer;
     size_t m_length;

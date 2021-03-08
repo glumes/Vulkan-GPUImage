@@ -2,30 +2,29 @@
 // Created by glumes on 2021/2/23.
 //
 
-#ifndef VULKANCAMERA_VKSWAPCHAININFO_H
-#define VULKANCAMERA_VKSWAPCHAININFO_H
+#ifndef VULKANCAMERA_VKSWAPCHAINMANAGER_H
+#define VULKANCAMERA_VKSWAPCHAINMANAGER_H
 
 #include <vulkan_wrapper.h>
 #include <vector>
 #include <string>
 #include <Log.h>
 
-class VKDeviceInfo;
-class VKRenderInfo;
+class VKDeviceManager;
+class VKRender;
 
-class VKSwapChainInfo {
+class VKSwapChainManager {
 
 public:
-    VKSwapChainInfo();
+    VKSwapChainManager();
 
-    ~VKSwapChainInfo();
+    ~VKSwapChainManager();
 
-    int createSwapChain(VKDeviceInfo* info);
+    int createSwapChain(VKDeviceManager* info);
 
-    int createFrameBuffer(VKDeviceInfo *deviceInfo, VKRenderInfo * renderInfo, VkImageView depthView =  VK_NULL_HANDLE);
+    int createFrameBuffer(VKDeviceManager *deviceInfo, VKRender * renderInfo, VkImageView depthView =  VK_NULL_HANDLE);
 
 
-//private:
 
     VkSwapchainKHR swapchain;
     uint32_t swapchainLength;
@@ -40,4 +39,4 @@ public:
 };
 
 
-#endif //VULKANCAMERA_VKSWAPCHAININFO_H
+#endif //VULKANCAMERA_VKSWAPCHAINMANAGER_H

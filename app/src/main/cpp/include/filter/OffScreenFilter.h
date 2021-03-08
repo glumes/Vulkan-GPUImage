@@ -14,7 +14,6 @@ public:
     OffScreenFilter():VulkanFilter(){
         pVertexShader = kVertexShader;
         pFragShader = kFragmentShader;
-        LOGI("zhy call OffScreenFilter ");
     }
 
     virtual int init(VkDevice device,VkRenderPass renderPass) override ;

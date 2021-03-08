@@ -2,25 +2,24 @@
 // Created by glumes on 2021/2/23.
 //
 
-#ifndef VULKANCAMERA_VKDEVICEINFO_H
-#define VULKANCAMERA_VKDEVICEINFO_H
+#ifndef VULKANCAMERA_VKDEVICEMANAGER_H
+#define VULKANCAMERA_VKDEVICEMANAGER_H
 
 #include <vulkan_wrapper.h>
 #include <vector>
 #include <string>
 #include <Log.h>
 
-class VKDeviceInfo {
+class VKDeviceManager {
 
 public:
 
-    VKDeviceInfo();
+    VKDeviceManager();
 
-    ~VKDeviceInfo();
+    ~VKDeviceManager();
 
     int createDevice(ANativeWindow* platformWindow, VkApplicationInfo* appInfo);
 
-//private:
     VkInstance instance;
     VkPhysicalDevice physicalDevice;
     VkPhysicalDeviceMemoryProperties memoryProperties;
@@ -36,4 +35,4 @@ public:
 };
 
 
-#endif //VULKANCAMERA_VKDEVICEINFO_H
+#endif //VULKANCAMERA_VKDEVICEMANAGER_H

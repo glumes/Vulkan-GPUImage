@@ -4,13 +4,13 @@
 
 #include <VKEngineRenderer.h>
 #include <Log.h>
-#include <VKDeviceInfo.h>
-#include <VKSwapChainInfo.h>
-#include <VKRenderInfo.h>
-#include <VKBufferInfo.h>
+#include <VKDeviceManager.h>
+#include <VKSwapChainManager.h>
+#include <VKRender.h>
+#include <VKBufferManager.h>
 #include <VKShaders.h>
-#include <VKTextureInfo.h>
-#include <VKOffScreenInfo.h>
+#include <VKTextureManager.h>
+#include <VKOffScreen.h>
 
 #include <VulkanFilter.h>
 #include <OffScreenFilter.h>
@@ -18,12 +18,12 @@
 #include <MirrorFilter.h>
 
 VKEngineRenderer::VKEngineRenderer() {
-    vkRenderInfo = new VKRenderInfo;
-    vkBufferInfo = new VKBufferInfo;
-    vkSwapChainInfo = new VKSwapChainInfo;
-    vkDeviceInfo = new VKDeviceInfo;
-    vkTextureInfo = new VKTextureInfo;
-    vkOffScreenInfo = new VKOffScreenInfo;
+    vkRenderInfo = new VKRender;
+    vkBufferInfo = new VKBufferManager;
+    vkSwapChainInfo = new VKSwapChainManager;
+    vkDeviceInfo = new VKDeviceManager;
+    vkTextureInfo = new VKTextureManager;
+    vkOffScreenInfo = new VKOffScreen;
 
     vkDeviceInfo->initialized = false;
 
