@@ -1,0 +1,3 @@
+entry: io.cdep.CDep
+dependencies:
+  - https://github.com/google/cdep/releases/download/0.8.31/cdep-0.8.31.jar

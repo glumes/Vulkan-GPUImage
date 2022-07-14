@@ -6,7 +6,7 @@
 ##
 ##############################################################################
 
-MANIFEST=https://raw.githubusercontent.com/jomof/cdep/master/boot.yml
+MANIFEST=$(pwd)/boot.yml
 
 if [ -f "$1" ]; then
     MANIFEST=$1
